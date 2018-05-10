@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <MainLayout>
-          <AutoCompleteInput />
+          <AutoCompleteInput {...this.props}/>
           <span style={{ paddingLeft: "8px" }}>
             {fetching
               ? <Button disabled type="primary" shape="circle" icon="search" />
@@ -41,7 +41,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onRequestAddresses: () => dispatch({ type: "API_CALL_REQUEST" })
+    onRequestAddresses: () => dispatch({ type: "API_CALL_REQUEST" }),
+    onHandleChange: (query)=> dispatch({ type: "SET_QUERY", query }),
   };
 };
 
