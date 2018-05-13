@@ -6,25 +6,21 @@ import { Button } from 'antd';
 class App extends Component {
 
   state = { 
-    fetching: false, 
-    addresses: null,  
-    error: null 
+    address: null    
+  }
+
+  handleSearch = (address) => {
+    this.setState({address});
   }
 
   render() {   
-    let {fetching, addresses, error} = this.state;
+    let {address} = this.state;
     return (
       <div className="App">
         <MainLayout>
-          <SearchInput />
-          <span style={{ paddingLeft: "8px" }}>
-            {fetching
-              ? <Button disabled type="primary" shape="circle" icon="search" />
-              : <Button type="primary" shape="circle" icon="search" />
-            }
-          </span>
-          {addresses
-            ? addresses
+          <SearchInput handleSearch={this.handleSearch}/>
+          {address
+            ? address
             : null
           }
         </MainLayout>

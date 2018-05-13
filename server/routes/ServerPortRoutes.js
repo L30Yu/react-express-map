@@ -4,12 +4,15 @@ const ServerPortRouter = express.Router();
 const getAddresses = require('../utils/readCsv');
 
 ServerPortRouter.route('/').post(function (req, res) {
-    if (req.body.addresses) {
-        let query = req.body.addresses;
+    if (req.body.query) {
+        let query = req.body.query.trim().toLowerCase();
+
         getAddresses(query).then(addresses => {
             let result = addresses.filter(value => {
-                return value.split(" ").find(word => word.toLowerCase().indexOf(query) === 0);
-            });
+                return value.toLowerCase().indexOf(query) >= 0;
+            }).filter((elem, pos, arr) => {
+                return arr.indexOf(elem) === pos;
+            });;
             res.json({ addresses: result });
         });
     }
