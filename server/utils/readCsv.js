@@ -12,7 +12,9 @@ function getAddresses() {
         try {
             let csvFile = fs.readFileSync(path.join(__dirname, './addresses.csv'));
             csv.parse(csvFile, function (err, data) {
-                addresses = data.filter((value, index) => index !== 0)
+                addresses = data.filter((value, index) => {
+                        data.indexOf(value) > 0 && data.indexOf(value) === index
+                    })
                     .map((value) => {
                         return value[0];
                     });
